@@ -38,13 +38,22 @@ public class TestMain {
 
     public static void main(String[] args) throws Exception {
         String json = generJson();
+        System.out.println(json);
+        System.out.println("--------------------所有属性都相同时的对比---------------------------");
         testAllSame(json);
+        System.out.println("--------------------可以忽略不管的属性在不同时的对比---------------------------");
         testIgnoreAnno(json);
+        System.out.println("--------------------一些基本属性不同的对比---------------------------");
         testBasicType(json);
+        System.out.println("--------------------复杂对象属性不同的对比---------------------------");
         testDownDetecion(json);
+        System.out.println("--------------------对list集合进行定制化的对比---------------------------");
         testConsumList(json);
+        System.out.println("--------------------对集合进行简单的toString后的对比---------------------------");
         testSimpleList(json);
+        System.out.println("---------------------对map中的value进行简单的equails对比--------------------------");
         testSimpleMap(json);
+        System.out.println("---------------------对map中的value进行详细属性的对比--------------------------");
         testMap(json);
     }
 
