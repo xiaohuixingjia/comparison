@@ -41,13 +41,17 @@ public abstract class AbstractListComparisonHandle<T, R> extends AbstractCompari
     }
 
     protected abstract Function<T, R> getId();
-
+    protected boolean needCheckIdSort() {
+        return true;
+    }
 
     protected <T> void childCompareList(CompareResult compareResult, List<T> v11, List<T> v22, String errAttrPrefix, Function<T, R> f) throws Exception {
-        String v1IdStr = v11.stream().map(f).map(s -> s.toString()).collect(Collectors.joining(","));
-        String v2IdStr = v22.stream().map(f).map(s -> s.toString()).collect(Collectors.joining(","));
-        if (!v1IdStr.equals(v2IdStr)) {
-            compareResult.addErrorAttr(errAttrPrefix + " 排序不同，v1:" + v1IdStr + " v2:" + v2IdStr);
+        if (needCheckIdSort()) {
+            String v1IdStr = v11.stream().map(f).map(s -> s.toString()).collect(Collectors.joining(","));
+            String v2IdStr = v22.stream().map(f).map(s -> s.toString()).collect(Collectors.joining(","));
+            if (!v1IdStr.equals(v2IdStr)) {
+                compareResult.addErrorAttr(errAttrPrefix + " 排序不同，v1:" + v1IdStr + " v2:" + v2IdStr);
+            }
         }
         Map<R, T> map1 = v11.stream().collect(Collectors.toMap(f, (s) -> s));
         Map<R, T> map2 = v22.stream().collect(Collectors.toMap(f, (s) -> s));
